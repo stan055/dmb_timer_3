@@ -2,7 +2,7 @@ import 'package:dmb_timer_3/screens/AllTimers/pickDate.dart';
 import 'package:dmb_timer_3/sqflite/db_helper.dart';
 import 'package:dmb_timer_3/sqflite/timer.dart';
 import 'package:dmb_timer_3/utilities/passedLeftDay.dart';
-import 'package:dmb_timer_3/widgets/Drawer.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -78,7 +78,7 @@ class _AllTimersHomeState extends State<AllTimersHome> {
         ),
         backgroundColor: Colors.grey[200],
       ),
-      drawer: Drawer(child: drawer(context)),
+      drawer: Drawer(child: menu(context)),
       backgroundColor: Colors.white,
       body: list(),
       floatingActionButton: FloatingActionButton(

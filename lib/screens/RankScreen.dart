@@ -1,5 +1,5 @@
 import 'package:dmb_timer_3/utilities/rank_list.dart';
-import 'package:dmb_timer_3/widgets/Drawer.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 
 class RankScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _RankScreenState extends State<RankScreen> {
                 ),
         backgroundColor: Colors.grey[200],
         ),
-      drawer: Drawer(child: drawer(context)),
+      drawer: Drawer(child: menu(context)),
       backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
               child: Column(

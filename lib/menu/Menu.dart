@@ -1,14 +1,14 @@
 import 'package:dmb_timer_3/screens/AllTimers/AllTimersHome.dart';
 import 'package:dmb_timer_3/screens/ChatScreen.dart';
 import 'package:dmb_timer_3/screens/DocumentsScreen.dart';
-import 'package:dmb_timer_3/screens/MyHomePage.dart';
+import 'package:dmb_timer_3/screens/HomePage/MyHomePage.dart';
 import 'package:dmb_timer_3/screens/RankScreen.dart';
 import 'package:dmb_timer_3/screens/ShevronsScreen.dart';
-import 'package:dmb_timer_3/screens/TthScreen.dart';
+import 'package:dmb_timer_3/screens/TthPage/TthScreen.dart';
 import 'package:dmb_timer_3/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
-Widget drawer(BuildContext context) {
+Widget menu(BuildContext context) {
   return Container(
     color: Colors.white,
     width: 300.0,
@@ -19,7 +19,9 @@ Widget drawer(BuildContext context) {
               gradient: LinearGradient(
                   colors: <Color>[Colors.grey[700], Colors.grey]),
               image: DecorationImage(
-                  image: ExactAssetImage("assets/images/army3.jpg"),
+                  image: homeScreenImg != null
+                      ? FileImage(homeScreenImg)
+                      : AssetImage('assets/images/army3.jpg'),
                   fit: BoxFit.none,
                   alignment: Alignment.topLeft),
             ),

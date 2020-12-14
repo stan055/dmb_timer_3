@@ -1,13 +1,16 @@
 import 'package:dmb_timer_3/utilities/constants.dart';
 import 'package:dmb_timer_3/utilities/passedLeftDay.dart';
-import 'package:dmb_timer_3/widgets/Drawer.dart';
-import 'package:dmb_timer_3/widgets/HomeBanner.dart';
-import 'package:dmb_timer_3/widgets/TimeLeftHelpContent.dart';
-import 'package:dmb_timer_3/widgets/TimePassedHelpContent.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
+import 'package:dmb_timer_3/screens/HomePage/HomeBanner.dart';
+import 'package:dmb_timer_3/screens/HomePage/TimeLeftHelpContent.dart';
+import 'package:dmb_timer_3/screens/HomePage/TimePassedHelpContent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
+import 'package:dmb_timer_3/services/firebase.service.dart';
+import 'package:dmb_timer_3/utilities/preferences.dart';
+import 'dart:io';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -21,7 +24,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  String imgPath = 'assets/images/army3.jpg';
   int dateTimeStart = DateTime.now().millisecondsSinceEpoch;
   int dateTimeEnd = DateTime.now().millisecondsSinceEpoch;
 
@@ -45,13 +48,33 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  getFirebaseUpdate() async {
+    FirebaseService fire = new FirebaseService();
+    fire.getMeta('wallpaper.jpg').then((meta) => {
+          Utility.getWallpapersTimeCreated().then((time) => {
+                if (meta != null &&
+                    meta.timeCreated.millisecondsSinceEpoch != time)
+                  {fire.downloadFile(meta.timeCreated.millisecondsSinceEpoch)}
+              })
+        });
+  }
+
+  getWallpaper() async {
+    Utility.getWallpaper().then((value) => {
+          if (value != null) {homeScreenImg = value}
+        });
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
 
+    getWallpaper();
     getNickName();
     getDateTimeStart();
     getDateTimeEnd();
+    getFirebaseUpdate();
   }
 
   double _width, _height;
@@ -62,35 +85,39 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: drawer(context),
+        drawer: menu(context),
         body: Stack(
           children: <Widget>[
             SizedBox.expand(
               child: FittedBox(
-                // If your background video doesn't look right, try changing the BoxFit property.
-                // BoxFit.fill created the look I was going for.
-                fit: BoxFit.fill,
-                child: SizedBox(
+                  fit: BoxFit.fill,
+                  child: SizedBox(
                     width: _width,
                     height: _height,
-                    child: Image.asset('assets/images/army3.jpg',
-                        height: _height, width: _width, fit: BoxFit.fill)),
-              ),
+                    child: homeScreenImg != null
+                        ? Image.file(
+                            homeScreenImg,
+                            width: _width,
+                            height: _height,
+                            fit: BoxFit.fill,
+                          )
+                        : Image.asset(
+                            'assets/images/army3.jpg',
+                            width: _width,
+                            height: _height,
+                            fit: BoxFit.fill,
+                          ),
+                  )),
             ),
             Positioned(
               right: _width / 2,
               bottom: _height / 2 - 70,
-              child: homeTimePassed(context)
-
-              //HomeTimePassed()
-              ,
+              child: homeTimePassed(context),
             ),
             Positioned(
               left: _width / 2,
               bottom: _height / 2 - 70,
-              child: homeTimeLeft(context)
-              //HomeTimeLeft()
-              ,
+              child: homeTimeLeft(context),
             ),
             Positioned(
               left: 5,
@@ -288,7 +315,6 @@ class _MyHomePageState extends State<MyHomePage> {
             borderRadius: BorderRadius.circular(7.0),
             color: Color(0x6040ffa1),
             border: Border.all(color: Colors.white, width: 1.0)),
-        //  margin: EdgeInsets.all(8),
         height: 200,
         width: _width / 2.2,
         child: Stack(
@@ -373,7 +399,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 _alertDialog(BuildContext context) {
   return AlertDialog(
-    //  backgroundColor: Color(0xffe0ffe9),
     title: Text('Дата початку: ' +
         DateTime.fromMillisecondsSinceEpoch(DATE_TIME_START)
             .toIso8601String()

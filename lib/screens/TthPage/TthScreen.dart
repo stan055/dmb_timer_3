@@ -1,5 +1,5 @@
-import 'package:dmb_timer_3/widgets/Drawer.dart';
-import 'package:dmb_timer_3/widgets/TthItem.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
+import 'package:dmb_timer_3/screens/TthPage/TthItem.dart';
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/utilities/tth_models.dart';
 
@@ -75,7 +75,7 @@ class _TthListState extends State<TthList> {
                 ),
         backgroundColor: Colors.grey[200],
         ),
-      drawer: Drawer(child: drawer(context)),
+      drawer: Drawer(child: menu(context)),
       body: Container(
         color: Colors.grey[200],
         child: Center(

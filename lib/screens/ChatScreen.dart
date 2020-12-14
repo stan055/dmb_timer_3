@@ -4,7 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:dmb_timer_3/widgets/Drawer.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/utilities/constants.dart';
 import 'package:quartet/quartet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,7 +113,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
    double _width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
-      drawer: drawer(context),
+      drawer: menu(context),
       appBar: AppBar(
         backgroundColor:Colors.grey[200],
         leading: MaterialButton(

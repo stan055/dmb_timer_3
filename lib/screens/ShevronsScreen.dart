@@ -1,5 +1,5 @@
 import 'package:dmb_timer_3/utilities/shevrons_list.dart';
-import 'package:dmb_timer_3/widgets/Drawer.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -29,7 +29,7 @@ class _ShevronsScreenState extends State<ShevronsScreen> {
                 ),
         backgroundColor: Colors.white,
         ),
-      drawer: Drawer(child: drawer(context)),
+      drawer: Drawer(child: menu(context)),
       body: Container(
           height: _height,
           width: _width,

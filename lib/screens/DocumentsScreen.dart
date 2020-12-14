@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dmb_timer_3/widgets/Drawer.dart';
+import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/utilities/documents_list_val.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -26,7 +26,7 @@ class _ListDocumentsScreenState extends State<ListDocumentsScreen> {
                 ),
         backgroundColor: Colors.grey[200],
         ),
-      drawer: Drawer(child: drawer(context)),
+      drawer: Drawer(child: menu(context)),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.grey[200],
