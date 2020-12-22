@@ -1,7 +1,7 @@
-import 'package:dmb_timer_3/screens/AllTimers/AllTimersHome.dart';
+import 'package:dmb_timer_3/screens/AllTimers/AllTimersScreen.dart';
 import 'package:dmb_timer_3/screens/ChatScreen.dart';
 import 'package:dmb_timer_3/screens/DocumentsScreen.dart';
-import 'package:dmb_timer_3/screens/HomePage/MyHomePage.dart';
+import 'package:dmb_timer_3/screens/HomePage/MyHomeScreen.dart';
 import 'package:dmb_timer_3/screens/RankScreen.dart';
 import 'package:dmb_timer_3/screens/ShevronsScreen.dart';
 import 'package:dmb_timer_3/screens/TthPage/TthScreen.dart';

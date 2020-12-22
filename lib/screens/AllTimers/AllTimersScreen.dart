@@ -1,6 +1,6 @@
 import 'package:dmb_timer_3/screens/AllTimers/pickDate.dart';
-import 'package:dmb_timer_3/sqflite/db_helper.dart';
-import 'package:dmb_timer_3/sqflite/timer.dart';
+import 'package:dmb_timer_3/screens/AllTimers/db_helper.dart';
+import 'package:dmb_timer_3/screens/AllTimers/timer.dart';
 import 'package:dmb_timer_3/utilities/passedLeftDay.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
