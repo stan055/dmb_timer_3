@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
-import 'package:dmb_timer_3/utilities/passed_left_day.dart';
 import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:dmb_timer_3/screens/home/calculate_date.dart' as calculateDate;
-import 'package:dmb_timer_3/screens/home/TimeLeftHelpContent.dart';
+import 'package:dmb_timer_3/screens/home/TimePassedHelpContent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dmb_timer_3/utilities/passed_left_day.dart';
 
-class TimeLeft extends StatefulWidget {
+class TimePassed extends StatefulWidget {
   @override
-  _TimeLeftState createState() => _TimeLeftState();
+  _TimePassedState createState() => _TimePassedState();
 }
 
-class _TimeLeftState extends State<TimeLeft> {
+class _TimePassedState extends State<TimePassed> {
   final ValueNotifier<int> valueNotifier = ValueNotifier<int>(0);
-
   double width;
 
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
+
     return Container(
         decoration: BoxDecoration(
-            color: Color(0x65f05059),
             borderRadius: BorderRadius.circular(7.0),
-            border: Border.all(width: 1.0, color: Colors.white)),
+            color: Color(0x6040ffa1),
+            border: Border.all(color: Colors.white, width: 1.0)),
         height: 200,
         width: width / 2.2,
         child: Stack(
@@ -34,7 +34,7 @@ class _TimeLeftState extends State<TimeLeft> {
                   width: width / 2.2,
                   child: Center(
                     child: Text(
-                      'Залишилось днів',
+                      'Пройшло днів',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -62,7 +62,7 @@ class _TimeLeftState extends State<TimeLeft> {
               builder: (BuildContext context, int value, Widget child) {
                 return Center(
                     child: Text(
-                  leftDay(DATE_TIME_END).toString(),
+                  passedDay(DATE_TIME_START).toString(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 40,
@@ -76,7 +76,7 @@ class _TimeLeftState extends State<TimeLeft> {
               right: 0,
               child: MaterialButton(
                 onPressed: () {
-                  pickDateLeft(context);
+                  pickDate(context);
                 },
                 child: Text(
                   'Змінити',
@@ -90,13 +90,11 @@ class _TimeLeftState extends State<TimeLeft> {
 
   helpButton(BuildContext context) {
     return AlertDialog(
-      title: Text(
-        'Дата завершення: ' +
-            DateTime.fromMillisecondsSinceEpoch(DATE_TIME_END)
-                .toIso8601String()
-                .substring(0, 10),
-      ),
-      content: TimeLeftHelpContent(),
+      title: Text('Дата початку: ' +
+          DateTime.fromMillisecondsSinceEpoch(DATE_TIME_START)
+              .toIso8601String()
+              .substring(0, 10)),
+      content: TimePassedHelpContent(),
       actions: <Widget>[
         MaterialButton(
           elevation: 3.0,
@@ -109,7 +107,7 @@ class _TimeLeftState extends State<TimeLeft> {
     );
   }
 
-  pickDateLeft(BuildContext context) async {
+  pickDate(BuildContext context) async {
     DateTime dateTime = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -121,12 +119,12 @@ class _TimeLeftState extends State<TimeLeft> {
     if (dateTime != null) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs
-          .setInt(DATE_END_KEY, dateTime.millisecondsSinceEpoch)
+          .setInt(DATE_START_KEY, dateTime.millisecondsSinceEpoch)
           .then((bool success) {
         valueNotifier.value = dateTime.millisecondsSinceEpoch;
-        DATE_TIME_END = dateTime.millisecondsSinceEpoch;
+        DATE_TIME_START = dateTime.millisecondsSinceEpoch;
         PERCENT_VALUE.value = calculateDate.percentPassed(
-            DATE_TIME_START, dateTime.millisecondsSinceEpoch, false);
+            dateTime.millisecondsSinceEpoch, DATE_TIME_END, false);
         return dateTime.millisecondsSinceEpoch;
       });
     }

@@ -13,6 +13,8 @@ import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:dmb_timer_3/utilities/Pref.dart';
 import 'package:dmb_timer_3/utilities/UserData.dart';
 
+import 'TimePassed.dart';
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   static const String id = "HOME_SCREEN";
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               right: _width / 2,
               bottom: _height / 2 - 70,
-              child: homeTimePassed(context),
+              child: new TimePassed(),
             ),
             Positioned(
               left: _width / 2,
@@ -147,110 +149,4 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     super.dispose();
   }
-
-  Widget homeTimePassed(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7.0),
-            color: Color(0x6040ffa1),
-            border: Border.all(color: Colors.white, width: 1.0)),
-        height: 200,
-        width: _width / 2.2,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-                top: 44,
-                child: Container(
-                  width: _width / 2.2,
-                  child: Center(
-                    child: Text(
-                      'Пройшло днів',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                )),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: Container(
-                height: 30,
-                width: 45,
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => _alertDialog(context));
-                  },
-                  child: Icon(
-                    Icons.help,
-                    color: Colors.white70,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-                child: Text(
-              passedDay(dateTimeStart).toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold),
-            )),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: MaterialButton(
-                onPressed: () {
-                  _pickDate(context);
-                },
-                child: Text(
-                  'Змінити',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            )
-          ],
-        ));
-  }
-
-  _pickDate(BuildContext context) async {
-    DateTime dateTime = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(Duration(days: 365 * 6)),
-      lastDate: DateTime.now().add(Duration(days: 365 * 5)),
-      locale: Locale('uk'),
-    );
-
-    if (dateTime != null) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      dateTimeStart = await prefs
-          .setInt(DATE_START_KEY, dateTime.millisecondsSinceEpoch)
-          .then((bool success) {
-        return dateTime.millisecondsSinceEpoch;
-      });
-      setState(() {
-        DATE_TIME_START = dateTimeStart;
-      });
-    }
-  }
-}
-
-_alertDialog(BuildContext context) {
-  return AlertDialog(
-    title: Text('Дата початку: ' +
-        DateTime.fromMillisecondsSinceEpoch(DATE_TIME_START)
-            .toIso8601String()
-            .substring(0, 10)),
-    content: TimePassedHelpContent(),
-    actions: <Widget>[
-      MaterialButton(
-        elevation: 3.0,
-        child: Text('Закрити'),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      )
-    ],
-  );
 }
