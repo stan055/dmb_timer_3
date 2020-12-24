@@ -8,7 +8,6 @@ import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:dmb_timer_3/utilities/Pref.dart';
 import 'package:dmb_timer_3/utilities/UserData.dart';
-
 import 'TimePassed.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -24,14 +23,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String imgPath = 'assets/images/army3.jpg';
-  int dateTimeStart = DateTime.now().millisecondsSinceEpoch;
-  int dateTimeEnd = DateTime.now().millisecondsSinceEpoch;
 
   getData() async {
     UserData data = await Pref.getData();
     NICK_NAME_VAL = data.nickName;
-    DATE_TIME_START = dateTimeStart = data.dateStart;
-    DATE_TIME_END = dateTimeEnd = data.dateEnd;
+    DATE_TIME_START = data.dateStart;
+    DATE_TIME_END = data.dateEnd;
     PERCENT_VALUE.value =
         calculateDate.percentPassed(DATE_TIME_START, DATE_TIME_END, false);
     setState(() {});
