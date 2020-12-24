@@ -1,11 +1,11 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:dmb_timer_3/utilities/constants.dart';
+import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io';
-import 'package:dmb_timer_3/utilities/preferences.dart';
+import 'package:dmb_timer_3/utilities/Pref.dart';
 
 class FirebaseService {
   Future<String> getFirebaseLaunchUrl() async {
@@ -50,7 +50,7 @@ class FirebaseService {
           .ref('wallpaper.jpg')
           .writeToFile(downloadToFile)
           .whenComplete(
-              () => {Utility.saveFile(downloadToFile.path, timeCreated)});
+              () => {Pref.saveFile(downloadToFile.path, timeCreated)});
     } on firebase_core.FirebaseException catch (e) {
       print(e);
     }

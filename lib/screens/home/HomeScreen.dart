@@ -1,6 +1,6 @@
-import 'package:dmb_timer_3/utilities/constants.dart';
+import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
-import 'package:dmb_timer_3/utilities/passedLeftDay.dart';
+import 'package:dmb_timer_3/utilities/passed_left_day.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/screens/home/HomeBanner.dart';
 import 'package:dmb_timer_3/screens/home/TimeLeftHelpContent.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:dmb_timer_3/services/firebase.service.dart';
-import 'package:dmb_timer_3/utilities/preferences.dart';
+import 'package:dmb_timer_3/utilities/Pref.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   getFirebaseUpdate() async {
     FirebaseService fire = new FirebaseService();
     fire.getMeta('wallpaper.jpg').then((meta) => {
-          Utility.getWallpapersTimeCreated().then((time) => {
+          Pref.getWallpapersTimeCreated().then((time) => {
                 if (meta != null &&
                     meta.timeCreated.millisecondsSinceEpoch != time)
                   {fire.downloadFile(meta.timeCreated.millisecondsSinceEpoch)}
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   getWallpaper() async {
-    Utility.getWallpaper().then((value) => {
+    Pref.getWallpaper().then((value) => {
           if (value != null) {homeScreenImg = value}
         });
     setState(() {});

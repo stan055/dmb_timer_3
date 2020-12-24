@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
-import 'package:dmb_timer_3/utilities/constants.dart';
+import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
 import 'package:quartet/quartet.dart';
 import 'package:shared_preferences/shared_preferences.dart';

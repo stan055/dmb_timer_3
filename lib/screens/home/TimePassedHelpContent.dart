@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dmb_timer_3/utilities/global_var.dart';
 
-import 'package:dmb_timer_3/utilities/writeYearMonthDayUkr.dart';
+import 'package:dmb_timer_3/utilities/write_year_month_day_ukr.dart';
 import 'package:flutter/material.dart';
 
 class TimePassedHelpContent extends StatefulWidget {
