@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:dmb_timer_3/utilities/global_var.dart';
 
-import 'package:dmb_timer_3/utilities/constants.dart';
 import 'package:dmb_timer_3/utilities/writeYearMonthDayUkr.dart';
 import 'package:flutter/material.dart';
 

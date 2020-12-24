@@ -1,10 +1,10 @@
-import 'package:dmb_timer_3/screens/AllTimers/AllTimersScreen.dart';
-import 'package:dmb_timer_3/screens/ChatScreen.dart';
-import 'package:dmb_timer_3/screens/DocumentsScreen.dart';
-import 'package:dmb_timer_3/screens/HomePage/MyHomeScreen.dart';
-import 'package:dmb_timer_3/screens/RankScreen.dart';
-import 'package:dmb_timer_3/screens/ShevronsScreen.dart';
-import 'package:dmb_timer_3/screens/TthPage/TthScreen.dart';
+import 'package:dmb_timer_3/screens/all_timers/AllTimersScreen.dart';
+import 'package:dmb_timer_3/screens/chat/ChatScreen.dart';
+import 'package:dmb_timer_3/screens/documents/DocumentsScreen.dart';
+import 'package:dmb_timer_3/screens/home/HomeScreen.dart';
+import 'package:dmb_timer_3/screens/rank/RankScreen.dart';
+import 'package:dmb_timer_3/screens/shevrons/ShevronsScreen.dart';
+import 'package:dmb_timer_3/screens/tth/TthScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

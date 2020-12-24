@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
-import 'package:dmb_timer_3/utilities/documents_list_val.dart';
+import 'package:dmb_timer_3/screens/documents/documents_list_val.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ListDocumentsScreen extends StatefulWidget {

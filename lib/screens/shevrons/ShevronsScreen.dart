@@ -1,4 +1,4 @@
-import 'package:dmb_timer_3/utilities/shevrons_list.dart';
+import 'package:dmb_timer_3/screens/shevrons/shevrons_list.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
