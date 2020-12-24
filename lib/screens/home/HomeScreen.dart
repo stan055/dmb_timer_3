@@ -29,24 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int dateTimeStart = DateTime.now().millisecondsSinceEpoch;
   int dateTimeEnd = DateTime.now().millisecondsSinceEpoch;
 
-  getFirebaseUpdate() async {
-    FirebaseService fire = new FirebaseService();
-    fire.getMeta('wallpaper.jpg').then((meta) => {
-          Pref.getWallpapersTimeCreated().then((time) => {
-                if (meta != null &&
-                    meta.timeCreated.millisecondsSinceEpoch != time)
-                  {fire.downloadFile(meta.timeCreated.millisecondsSinceEpoch)}
-              })
-        });
-  }
-
-  getWallpaper() async {
-    Pref.getWallpaper().then((value) => {
-          if (value != null) {homeScreenImg = value}
-        });
-    setState(() {});
-  }
-
   getData() async {
     UserData data = await Pref.getData();
     NICK_NAME_VAL = data.nickName;
@@ -59,8 +41,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    // getWallpaper();
-    // getFirebaseUpdate();
     getData();
   }
 
