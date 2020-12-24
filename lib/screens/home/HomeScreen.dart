@@ -1,14 +1,10 @@
-import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
-import 'package:dmb_timer_3/utilities/passed_left_day.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/screens/home/HomeBanner.dart';
-import 'package:dmb_timer_3/screens/home/TimePassedHelpContent.dart';
 import 'package:dmb_timer_3/screens/home/TimeLeft.dart';
 import 'package:dmb_timer_3/screens/home/calculate_date.dart' as calculateDate;
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:dmb_timer_3/utilities/Pref.dart';
 import 'package:dmb_timer_3/utilities/UserData.dart';
