@@ -5,11 +5,12 @@ import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/screens/home/HomeBanner.dart';
 import 'package:dmb_timer_3/screens/home/TimeLeftHelpContent.dart';
 import 'package:dmb_timer_3/screens/home/TimePassedHelpContent.dart';
+import 'package:dmb_timer_3/screens/home/percent_calculate.dart'
+    as percentCalculate;
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
-import 'package:dmb_timer_3/services/firebase.service.dart';
 import 'package:dmb_timer_3/utilities/Pref.dart';
 import 'package:dmb_timer_3/utilities/UserData.dart';
 
@@ -69,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             fit: BoxFit.fill,
                           )
                         : Image.asset(
-                            'assets/images/army3.jpg',
+                            imgPath,
                             width: _width,
                             height: _height,
                             fit: BoxFit.fill,
@@ -113,7 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: ((_width / 2.2) * 2),
                 child: RoundedProgressBar(
                   childCenter: Text(
-                      percentPassed(dateTimeStart, dateTimeEnd, false)
+                      percentCalculate
+                          .percentPassed(dateTimeStart, dateTimeEnd, false)
                           .toStringAsFixed(1),
                       style: TextStyle(
                           fontSize: 12,
@@ -128,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderWidth: 0,
                       backgroundProgress: Color(0x88f05059),
                       colorProgress: Color(0x8840ffa1)),
-                  percent: percentPassed(dateTimeStart, dateTimeEnd, false),
+                  percent: percentCalculate.percentPassed(
+                      dateTimeStart, dateTimeEnd, false),
                 ),
               ),
             ),
@@ -141,27 +144,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  double percentPassed(int start, int end, bool boolPercent) {
-    int timeLeft = (DateTime.now().millisecondsSinceEpoch - start).toInt();
-    int timeStartEnd = (end - start).toInt();
-    double percent = 100.0 / (timeStartEnd - 1) * timeLeft;
-    if (!boolPercent) {
-      if (percent >= 0.0 && percent <= 100.0)
-        return percent;
-      else if (percent >= 100.0) {
-        return 100.0;
-      } else
-        return 0.0;
-    } else {
-      double value = (percent - percent % 10) / 100;
-      if (value >= 0.0 && value <= 1.0) {
-        return value;
-      } else {
-        return 0.0;
-      }
-    }
   }
 
   Widget homeTimeLeft(BuildContext context) {
