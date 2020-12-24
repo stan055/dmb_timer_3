@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:dmb_timer_3/services/firebase.service.dart';
 import 'package:dmb_timer_3/utilities/Pref.dart';
+import 'package:dmb_timer_3/utilities/UserData.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -27,26 +28,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String imgPath = 'assets/images/army3.jpg';
   int dateTimeStart = DateTime.now().millisecondsSinceEpoch;
   int dateTimeEnd = DateTime.now().millisecondsSinceEpoch;
-
-  getNickName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    NICK_NAME_VAL = (prefs.getString('NICK_NAME_KEY') ?? 'bro');
-  }
-
-  getDateTimeStart() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    dateTimeStart =
-        prefs.getInt(DATE_START_KEY) ?? DateTime.now().millisecondsSinceEpoch;
-    DATE_TIME_START = dateTimeStart;
-  }
-
-  getDateTimeEnd() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    dateTimeEnd =
-        prefs.getInt(DATE_END_KEY) ?? DateTime.now().millisecondsSinceEpoch;
-    DATE_TIME_END = dateTimeEnd;
-    setState(() {});
-  }
 
   getFirebaseUpdate() async {
     FirebaseService fire = new FirebaseService();
@@ -66,15 +47,21 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  getData() async {
+    UserData data = await Pref.getData();
+    NICK_NAME_VAL = data.nickName;
+    DATE_TIME_START = dateTimeStart = data.dateStart;
+    DATE_TIME_END = dateTimeEnd = data.dateEnd;
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
 
     // getWallpaper();
-    getNickName();
-    getDateTimeStart();
-    getDateTimeEnd();
     // getFirebaseUpdate();
+    getData();
   }
 
   double _width, _height;
@@ -197,14 +184,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-//------------------------------------------------------------------------------------------------------------
   Widget homeTimeLeft(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
             color: Color(0x65f05059),
             borderRadius: BorderRadius.circular(7.0),
             border: Border.all(width: 1.0, color: Colors.white)),
-        //  margin: EdgeInsets.all(8),
         height: 200,
         width: _width / 2.2,
         child: Stack(
@@ -288,7 +273,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _alertDialogLeft(BuildContext context) {
     return AlertDialog(
-      //  backgroundColor: Color(0xffffe9e9),
       title: Text(
         'Дата завершення: ' +
             DateTime.fromMillisecondsSinceEpoch(DATE_TIME_END)

@@ -3,10 +3,24 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:path_provider/path_provider.dart';
+import 'UserData.dart';
 
 class Pref {
   static const String DATE_START_KEY = "DATE_START_KEY";
   static const String DATE_START_END = "DATE_START_END";
+
+  static Future<Object> getData() async {
+    UserData data = new UserData();
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    data.nickName = prefs.getString('NICK_NAME_KEY') ?? NICK_NAME;
+    data.dateStart =
+        prefs.getInt('dateTimeStart') ?? DateTime.now().millisecondsSinceEpoch;
+    data.dateEnd =
+        prefs.getInt('dateTimeEnd') ?? DateTime.now().millisecondsSinceEpoch;
+
+    return data;
+  }
 
   static Future<int> getDateStartTimer() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
