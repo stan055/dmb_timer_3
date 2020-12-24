@@ -1,3 +1,4 @@
+
 double percentPassed(int start, int end, bool boolPercent) {
   int timeLeft = (DateTime.now().millisecondsSinceEpoch - start).toInt();
   int timeStartEnd = (end - start).toInt();
@@ -17,4 +18,14 @@ double percentPassed(int start, int end, bool boolPercent) {
       return 0.0;
     }
   }
+}
+
+
+int leftDay(int milliseconds) {
+  int milisecondsOfOneDay = 86400000;
+  int day = ((milliseconds - DateTime.now().millisecondsSinceEpoch) /
+          milisecondsOfOneDay) ~/
+      1;
+
+  return day;
 }

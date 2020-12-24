@@ -3,10 +3,9 @@ import 'package:dmb_timer_3/utilities/global_var.dart';
 import 'package:dmb_timer_3/utilities/passed_left_day.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/screens/home/HomeBanner.dart';
-import 'package:dmb_timer_3/screens/home/TimeLeftHelpContent.dart';
 import 'package:dmb_timer_3/screens/home/TimePassedHelpContent.dart';
-import 'package:dmb_timer_3/screens/home/percent_calculate.dart'
-    as percentCalculate;
+import 'package:dmb_timer_3/screens/home/TimeLeft.dart';
+import 'package:dmb_timer_3/screens/home/calculate_date.dart' as calculateDate;
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,6 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
     NICK_NAME_VAL = data.nickName;
     DATE_TIME_START = dateTimeStart = data.dateStart;
     DATE_TIME_END = dateTimeEnd = data.dateEnd;
+    PERCENT_VALUE.value =
+        calculateDate.percentPassed(DATE_TIME_START, DATE_TIME_END, false);
     setState(() {});
   }
 
@@ -85,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               left: _width / 2,
               bottom: _height / 2 - 70,
-              child: homeTimeLeft(context),
+              child: new TimeLeft(),
             ),
             Positioned(
               left: 5,
@@ -112,26 +113,27 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 height: 12,
                 width: ((_width / 2.2) * 2),
-                child: RoundedProgressBar(
-                  childCenter: Text(
-                      percentCalculate
-                          .percentPassed(dateTimeStart, dateTimeEnd, false)
-                          .toStringAsFixed(1),
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
-                  height: 12.0,
-                  childLeft: Text('progressBar'),
-                  milliseconds: 2000,
-                  style: RoundedProgressBarStyle(
-                      colorBorder: Colors.transparent,
-                      colorProgressDark: Colors.transparent,
-                      borderWidth: 0,
-                      backgroundProgress: Color(0x88f05059),
-                      colorProgress: Color(0x8840ffa1)),
-                  percent: percentCalculate.percentPassed(
-                      dateTimeStart, dateTimeEnd, false),
+                child: ValueListenableBuilder(
+                  builder: (BuildContext context, double value, Widget child) {
+                    return RoundedProgressBar(
+                        childCenter: Text(
+                            PERCENT_VALUE.value.toStringAsFixed(1),
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                        height: 12.0,
+                        childLeft: Text('progressBar'),
+                        milliseconds: 2000,
+                        style: RoundedProgressBarStyle(
+                            colorBorder: Colors.transparent,
+                            colorProgressDark: Colors.transparent,
+                            borderWidth: 0,
+                            backgroundProgress: Color(0x88f05059),
+                            colorProgress: Color(0x8840ffa1)),
+                        percent: PERCENT_VALUE.value);
+                  },
+                  valueListenable: PERCENT_VALUE,
                 ),
               ),
             ),
@@ -144,114 +146,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  Widget homeTimeLeft(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Color(0x65f05059),
-            borderRadius: BorderRadius.circular(7.0),
-            border: Border.all(width: 1.0, color: Colors.white)),
-        height: 200,
-        width: _width / 2.2,
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-                top: 44,
-                child: Container(
-                  width: _width / 2.2,
-                  child: Center(
-                    child: Text(
-                      'Залишилось днів',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                )),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: Container(
-                height: 30,
-                width: 45,
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => _alertDialogLeft(context));
-                  },
-                  child: Icon(
-                    Icons.help,
-                    color: Colors.white70,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-                child: Text(
-              leftDay(dateTimeEnd).toString(),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold),
-            )),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: MaterialButton(
-                onPressed: () {
-                  _pickDateLeft(context);
-                },
-                child: Text(
-                  'Змінити',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            )
-          ],
-        ));
-  }
-
-  _pickDateLeft(BuildContext context) async {
-    DateTime dateTime = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(Duration(days: 365 * 6)),
-      lastDate: DateTime.now().add(Duration(days: 365 * 5)),
-      locale: Locale('uk'),
-    );
-
-    if (dateTime != null) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      dateTimeEnd = await prefs
-          .setInt(DATE_END_KEY, dateTime.millisecondsSinceEpoch)
-          .then((bool success) {
-        return dateTime.millisecondsSinceEpoch;
-      });
-      setState(() {
-        DATE_TIME_END = dateTimeEnd;
-      });
-    }
-  }
-
-  _alertDialogLeft(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        'Дата завершення: ' +
-            DateTime.fromMillisecondsSinceEpoch(DATE_TIME_END)
-                .toIso8601String()
-                .substring(0, 10),
-      ),
-      content: TimeLeftHelpContent(),
-      actions: <Widget>[
-        MaterialButton(
-          elevation: 3.0,
-          child: Text('Закрити'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );
   }
 
   Widget homeTimePassed(BuildContext context) {
