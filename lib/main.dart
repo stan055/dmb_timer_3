@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
         ChatScreen.id: (context) => ChatScreen(),
         ShevronsScreen.id: (context) => ShevronsScreen(),
       },
-      //  home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

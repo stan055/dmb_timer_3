@@ -70,11 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    getWallpaper();
+    // getWallpaper();
     getNickName();
     getDateTimeStart();
     getDateTimeEnd();
-    getFirebaseUpdate();
+    // getFirebaseUpdate();
   }
 
   double _width, _height;
@@ -308,7 +308,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-//------------------------------------------------------------------------------------------------------------
   Widget homeTimePassed(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
