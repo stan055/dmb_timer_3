@@ -1,5 +1,5 @@
 import 'package:dmb_timer_3/menu/Menu.dart';
-import 'package:dmb_timer_3/screens/tth/TthItem.dart';
+import 'package:dmb_timer_3/screens/tth/widgets/TthItem.dart';
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/screens/tth/tth_models.dart';
 

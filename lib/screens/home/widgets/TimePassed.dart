@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
 import 'package:dmb_timer_3/utilities/global_constants.dart';
-import 'package:dmb_timer_3/screens/home/calculate_date.dart' as calculateDate;
-import 'package:dmb_timer_3/screens/home/TimePassedHelpContent.dart';
+import 'package:dmb_timer_3/screens/home/widgets/passed_help_button/PassedHelpButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dmb_timer_3/utilities/passed_left_day.dart';
+import 'package:dmb_timer_3/utilities/calculate_date.dart';
 
 class TimePassed extends StatefulWidget {
   @override
@@ -43,20 +42,7 @@ class _TimePassedState extends State<TimePassed> {
               right: 0,
               top: 0,
               child: Container(
-                height: 30,
-                width: 45,
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => helpButton(context));
-                  },
-                  child: Icon(
-                    Icons.help,
-                    color: Colors.white70,
-                  ),
-                ),
-              ),
+                  height: 30, width: 45, child: new PassedHelpButton()),
             ),
             ValueListenableBuilder(
               builder: (BuildContext context, int value, Widget child) {
@@ -88,25 +74,6 @@ class _TimePassedState extends State<TimePassed> {
         ));
   }
 
-  helpButton(BuildContext context) {
-    return AlertDialog(
-      title: Text('Дата початку: ' +
-          DateTime.fromMillisecondsSinceEpoch(DATE_TIME_START)
-              .toIso8601String()
-              .substring(0, 10)),
-      content: TimePassedHelpContent(),
-      actions: <Widget>[
-        MaterialButton(
-          elevation: 3.0,
-          child: Text('Закрити'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );
-  }
-
   pickDate(BuildContext context) async {
     DateTime dateTime = await showDatePicker(
       context: context,
@@ -123,8 +90,8 @@ class _TimePassedState extends State<TimePassed> {
           .then((bool success) {
         valueNotifier.value = dateTime.millisecondsSinceEpoch;
         DATE_TIME_START = dateTime.millisecondsSinceEpoch;
-        PERCENT_VALUE.value = calculateDate.percentPassed(
-            dateTime.millisecondsSinceEpoch, DATE_TIME_END, false);
+        PERCENT_VALUE.value =
+            percentPassedPro(dateTime.millisecondsSinceEpoch, DATE_TIME_END);
         return dateTime.millisecondsSinceEpoch;
       });
     }

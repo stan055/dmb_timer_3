@@ -1,9 +1,8 @@
+import 'package:dmb_timer_3/screens/home/widgets/left_help_button/LeftHelpButton.dart';
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
-import 'package:dmb_timer_3/utilities/passed_left_day.dart';
+import 'package:dmb_timer_3/utilities/calculate_date.dart';
 import 'package:dmb_timer_3/utilities/global_constants.dart';
-import 'package:dmb_timer_3/screens/home/calculate_date.dart' as calculateDate;
-import 'package:dmb_timer_3/screens/home/TimeLeftHelpContent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimeLeft extends StatefulWidget {
@@ -42,21 +41,8 @@ class _TimeLeftState extends State<TimeLeft> {
             Positioned(
               right: 0,
               top: 0,
-              child: Container(
-                height: 30,
-                width: 45,
-                child: MaterialButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => helpButton(context));
-                  },
-                  child: Icon(
-                    Icons.help,
-                    color: Colors.white70,
-                  ),
-                ),
-              ),
+              child:
+                  Container(height: 30, width: 45, child: new LeftHelpButton()),
             ),
             ValueListenableBuilder(
               builder: (BuildContext context, int value, Widget child) {
@@ -88,27 +74,6 @@ class _TimeLeftState extends State<TimeLeft> {
         ));
   }
 
-  helpButton(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        'Дата завершення: ' +
-            DateTime.fromMillisecondsSinceEpoch(DATE_TIME_END)
-                .toIso8601String()
-                .substring(0, 10),
-      ),
-      content: TimeLeftHelpContent(),
-      actions: <Widget>[
-        MaterialButton(
-          elevation: 3.0,
-          child: Text('Закрити'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );
-  }
-
   pickDateLeft(BuildContext context) async {
     DateTime dateTime = await showDatePicker(
       context: context,
@@ -125,8 +90,8 @@ class _TimeLeftState extends State<TimeLeft> {
           .then((bool success) {
         valueNotifier.value = dateTime.millisecondsSinceEpoch;
         DATE_TIME_END = dateTime.millisecondsSinceEpoch;
-        PERCENT_VALUE.value = calculateDate.percentPassed(
-            DATE_TIME_START, dateTime.millisecondsSinceEpoch, false);
+        PERCENT_VALUE.value =
+            percentPassedPro(DATE_TIME_START, dateTime.millisecondsSinceEpoch);
         return dateTime.millisecondsSinceEpoch;
       });
     }

@@ -1,7 +1,7 @@
 import 'package:dmb_timer_3/screens/all_timers/pick_date.dart';
 import 'package:dmb_timer_3/screens/all_timers/db_helper.dart';
 import 'package:dmb_timer_3/screens/all_timers/Timer.dart';
-import 'package:dmb_timer_3/utilities/passed_left_day.dart';
+import 'package:dmb_timer_3/utilities/calculate_date.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';

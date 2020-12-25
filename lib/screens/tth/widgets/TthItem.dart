@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tth_models.dart';
+import '../tth_models.dart';
 
 class MyDetailPage extends StatefulWidget {
   TthListItem _itemList;
@@ -33,7 +33,7 @@ class _MyDetailPageState extends State<MyDetailPage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
+            Container( 
               height: 270.0,
               decoration: BoxDecoration(
                   image: DecorationImage(

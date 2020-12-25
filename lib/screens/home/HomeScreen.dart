@@ -1,14 +1,13 @@
 import 'package:dmb_timer_3/utilities/global_var.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
-import 'package:dmb_timer_3/screens/home/HomeBanner.dart';
-import 'package:dmb_timer_3/screens/home/TimeLeft.dart';
-import 'package:dmb_timer_3/screens/home/calculate_date.dart' as calculateDate;
+import 'package:dmb_timer_3/screens/home/Widgets/HomeBanner.dart';
+import 'package:dmb_timer_3/screens/home/Widgets/TimeLeft.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
-import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
+import 'widgets/progress_bar/ProgressBar.dart';
 import 'package:dmb_timer_3/utilities/Pref.dart';
 import 'package:dmb_timer_3/utilities/UserData.dart';
-import 'TimePassed.dart';
+import 'package:dmb_timer_3/utilities/calculate_date.dart';
+import 'Widgets/TimePassed.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -29,8 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
     NICK_NAME_VAL = data.nickName;
     DATE_TIME_START = data.dateStart;
     DATE_TIME_END = data.dateEnd;
-    PERCENT_VALUE.value =
-        calculateDate.percentPassed(DATE_TIME_START, DATE_TIME_END, false);
+    PERCENT_VALUE.value = percentPassedPro(DATE_TIME_START, DATE_TIME_END);
     setState(() {});
   }
 
@@ -106,31 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
               bottom: _height / 2 - 85,
               left: (_width - ((_width / 2.2) * 2)) / 2,
               child: Container(
-                height: 12,
-                width: ((_width / 2.2) * 2),
-                child: ValueListenableBuilder(
-                  builder: (BuildContext context, double value, Widget child) {
-                    return RoundedProgressBar(
-                        childCenter: Text(
-                            PERCENT_VALUE.value.toStringAsFixed(1),
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
-                        height: 12.0,
-                        childLeft: Text('progressBar'),
-                        milliseconds: 2000,
-                        style: RoundedProgressBarStyle(
-                            colorBorder: Colors.transparent,
-                            colorProgressDark: Colors.transparent,
-                            borderWidth: 0,
-                            backgroundProgress: Color(0x88f05059),
-                            colorProgress: Color(0x8840ffa1)),
-                        percent: PERCENT_VALUE.value);
-                  },
-                  valueListenable: PERCENT_VALUE,
-                ),
-              ),
+                  height: 12,
+                  width: ((_width / 2.2) * 2),
+                  child: new ProgressBar()),
             ),
           ],
         ),
