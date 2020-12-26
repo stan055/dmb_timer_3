@@ -10,18 +10,17 @@ class TimePassedHelpContent extends StatefulWidget {
 }
 
 class _TimePassedHelpContentState extends State<TimePassedHelpContent> {
-  String _yearPassed;
-  String _dayPassed;
-  String _percentPassed;
+  String date;
+  String day;
+  String percent;
 
   @override
   void initState() {
     super.initState();
 
-    _yearPassed = passedYearMonthDayUkr(DATE_TIME_START);
-    _dayPassed = passedDay(DATE_TIME_START).toString();
-    _percentPassed =
-        percentPassed(DATE_TIME_START, DATE_TIME_END).toStringAsFixed(1);
+    date = passedYearMonthDayUkr(DATE_TIME_START);
+    day = passedDay(DATE_TIME_START).toString();
+    percent = percentPassed(DATE_TIME_START, DATE_TIME_END).toStringAsFixed(1);
     startTimer(60000);
   }
 
@@ -36,14 +35,14 @@ class _TimePassedHelpContentState extends State<TimePassedHelpContent> {
             height: 12,
           ),
           Text(
-            'Пройшло: $_yearPassed',
+            'Пройшло: $date',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           ),
           SizedBox(
             height: 7,
           ),
           Text(
-            'У днях: $_dayPassed',
+            'У днях: $day',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           ),
           SizedBox(
@@ -57,7 +56,7 @@ class _TimePassedHelpContentState extends State<TimePassedHelpContent> {
             height: 4,
           ),
           Text(
-            'У відсотках: $_percentPassed%',
+            'У відсотках: $percent%',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           )
         ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
-import 'package:dmb_timer_3/utilities/global_constants.dart';
+import 'package:dmb_timer_3/utilities/Pref.dart';
 import 'package:dmb_timer_3/screens/home/widgets/passed_help_button/PassedHelpButton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dmb_timer_3/utilities/calculate_date.dart';
 
 class TimePassed extends StatefulWidget {
@@ -84,16 +83,13 @@ class _TimePassedState extends State<TimePassed> {
     );
 
     if (dateTime != null) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs
-          .setInt(DATE_START_KEY, dateTime.millisecondsSinceEpoch)
-          .then((bool success) {
-        valueNotifier.value = dateTime.millisecondsSinceEpoch;
-        DATE_TIME_START = dateTime.millisecondsSinceEpoch;
-        PERCENT_VALUE.value =
-            percentPassedPro(dateTime.millisecondsSinceEpoch, DATE_TIME_END);
-        return dateTime.millisecondsSinceEpoch;
-      });
+      int milliseconds = dateTime.millisecondsSinceEpoch;
+      await Pref.saveDateStartTimer(milliseconds).then((value) => {
+            valueNotifier.value = milliseconds,
+            DATE_TIME_START = milliseconds,
+            PERCENT_VALUE.value = percentPassedPro(milliseconds, DATE_TIME_END),
+          });
+      return milliseconds;
     }
   }
 }

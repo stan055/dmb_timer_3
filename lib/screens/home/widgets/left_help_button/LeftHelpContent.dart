@@ -10,18 +10,17 @@ class TimeLeftHelpContent extends StatefulWidget {
 }
 
 class _TimeLeftHelpContentState extends State<TimeLeftHelpContent> {
-  String _yearLeft;
-  String _dayLeft;
-  String _percentLeft;
+  String date;
+  String day;
+  String percent;
 
   @override
   void initState() {
     super.initState();
 
-    _yearLeft = leftYearMonthDayUkr(DATE_TIME_END);
-    _dayLeft = leftDay(DATE_TIME_END).toString();
-    _percentLeft =
-        percentLeft(DATE_TIME_START, DATE_TIME_END).toStringAsFixed(1);
+    date = leftYearMonthDayUkr(DATE_TIME_END);
+    day = leftDay(DATE_TIME_END).toString();
+    percent = percentLeft(DATE_TIME_START, DATE_TIME_END).toStringAsFixed(1);
     startTimer(60000);
   }
 
@@ -36,14 +35,14 @@ class _TimeLeftHelpContentState extends State<TimeLeftHelpContent> {
             height: 12,
           ),
           Text(
-            'Залишилось: $_yearLeft',
+            'Залишилось: $date',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           ),
           SizedBox(
             height: 7,
           ),
           Text(
-            "У днях: $_dayLeft",
+            "У днях: $day",
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           ),
           SizedBox(
@@ -57,7 +56,7 @@ class _TimeLeftHelpContentState extends State<TimeLeftHelpContent> {
             height: 4,
           ),
           Text(
-            'У відсотках: $_percentLeft%',
+            'У відсотках: $percent%',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           )
         ],

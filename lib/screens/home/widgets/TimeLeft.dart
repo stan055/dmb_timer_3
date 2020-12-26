@@ -2,8 +2,7 @@ import 'package:dmb_timer_3/screens/home/widgets/left_help_button/LeftHelpButton
 import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
 import 'package:dmb_timer_3/utilities/calculate_date.dart';
-import 'package:dmb_timer_3/utilities/global_constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dmb_timer_3/utilities/Pref.dart';
 
 class TimeLeft extends StatefulWidget {
   @override
@@ -84,16 +83,14 @@ class _TimeLeftState extends State<TimeLeft> {
     );
 
     if (dateTime != null) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs
-          .setInt(DATE_END_KEY, dateTime.millisecondsSinceEpoch)
-          .then((bool success) {
-        valueNotifier.value = dateTime.millisecondsSinceEpoch;
-        DATE_TIME_END = dateTime.millisecondsSinceEpoch;
-        PERCENT_VALUE.value =
-            percentPassedPro(DATE_TIME_START, dateTime.millisecondsSinceEpoch);
-        return dateTime.millisecondsSinceEpoch;
-      });
+      int milliseconds = dateTime.millisecondsSinceEpoch;
+      await Pref.saveDateEndTimer(milliseconds).then((value) => {
+            valueNotifier.value = milliseconds,
+            DATE_TIME_END = milliseconds,
+            PERCENT_VALUE.value =
+                percentPassedPro(DATE_TIME_START, milliseconds),
+          });
+      return milliseconds;
     }
   }
 }
