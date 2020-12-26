@@ -50,7 +50,7 @@ class _TimePassedHelpContentState extends State<TimePassedHelpContent> {
             height: 4,
           ),
           Text(
-            'У годинах: ${hourPassed(DATE_TIME_START)}',
+            'У годинах: ${timePassed(DATE_TIME_START)}',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           ),
           SizedBox(

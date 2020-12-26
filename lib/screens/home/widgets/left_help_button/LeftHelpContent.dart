@@ -50,7 +50,7 @@ class _TimeLeftHelpContentState extends State<TimeLeftHelpContent> {
             height: 4,
           ),
           Text(
-            'У годинах: ${hourLeft(DATE_TIME_END)}',
+            'У годинах: ${timeLeft(DATE_TIME_END)}',
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 19.0),
           ),
           SizedBox(

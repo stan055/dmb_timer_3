@@ -11,8 +11,11 @@ leftDay(int milliseconds) {
   int day = ((milliseconds - DateTime.now().millisecondsSinceEpoch) /
           milisecondsOfOneDay) ~/
       1;
-
   return day;
+}
+
+percentLeft(int start, int end) {
+  return 100.0 - percentPassed(start, end);
 }
 
 percentPassed(int start, int end) {
@@ -21,15 +24,13 @@ percentPassed(int start, int end) {
   double percent = 100.0 / (timeStartEnd - 1) * timeLeft;
 
   if (percent < 100.0 && percent > 0.0)
-    return percent; //.toStringAsFixed(1);
+    return percent;
   else
     return 0;
 }
 
 percentPassedPro(int start, int end, {bool boolPercent = false}) {
-  int timeLeft = (DateTime.now().millisecondsSinceEpoch - start).toInt();
-  int timeStartEnd = (end - start).toInt();
-  double percent = 100.0 / (timeStartEnd - 1) * timeLeft;
+  double percent = percentPassed(start, end) * 1.0;
   if (!boolPercent) {
     if (percent >= 0.0 && percent <= 100.0)
       return percent;
@@ -47,33 +48,17 @@ percentPassedPro(int start, int end, {bool boolPercent = false}) {
   }
 }
 
-percentLeft(int start, int end) {
-  int timeLeft = (DateTime.now().millisecondsSinceEpoch - start).toInt();
-  int timeStartEnd = (end - start).toInt();
-  double percent = 100.0 - (100.0 / (timeStartEnd - 1) * timeLeft);
-
-  if (percent < 100.0 && percent > 0.0)
-    return percent;
-  else
-    return 0;
-}
-
-hourLeft(int timeEnd) {
+timeLeft(int timeEnd) {
   int milisecond = timeEnd - DateTime.now().millisecondsSinceEpoch;
-  double dobleSecond = milisecond / 1000;
-
-  int intHour = (dobleSecond / 60 ~/ 60);
-  int intMinut = ((dobleSecond / 60) % 60).toInt();
-  int second = (dobleSecond % 60).toInt();
-
-  String s =
-      intHour.toString() + ":" + intMinut.toString() + ":" + second.toString();
-
-  return s;
+  return milisecondToHourMinutSecond(milisecond);
 }
 
-hourPassed(int dateStart) {
+timePassed(int dateStart) {
   int milisecond = DateTime.now().millisecondsSinceEpoch - dateStart;
+  return milisecondToHourMinutSecond(milisecond);
+}
+
+milisecondToHourMinutSecond(int milisecond) {
   double dobleSecond = milisecond / 1000;
 
   int intHour = (dobleSecond / 60 ~/ 60);
