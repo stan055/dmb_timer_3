@@ -1,7 +1,7 @@
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/screens/tth/widgets/TthItem.dart';
 import 'package:flutter/material.dart';
-import 'package:dmb_timer_3/screens/tth/tth_models.dart';
+import 'package:dmb_timer_3/screens/tth/utilities/tth_models.dart';
 
 
 class TthList extends StatefulWidget {

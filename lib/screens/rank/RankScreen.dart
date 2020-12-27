@@ -1,4 +1,4 @@
-import 'package:dmb_timer_3/screens/rank/rank_list.dart';
+import 'package:dmb_timer_3/screens/rank/utilities/rank_list.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 

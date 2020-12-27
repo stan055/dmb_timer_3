@@ -5,6 +5,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'Timer.dart';
 
+DBHelper dbHelper = DBHelper();
+
 class DBHelper {
   static Database _db;
   static const String ID = 'id';

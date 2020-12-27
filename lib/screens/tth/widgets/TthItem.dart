@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../tth_models.dart';
+import '../utilities/tth_models.dart';
 
 class MyDetailPage extends StatefulWidget {
   TthListItem _itemList;

@@ -1,10 +1,11 @@
-import 'package:dmb_timer_3/screens/all_timers/pick_date.dart';
-import 'package:dmb_timer_3/screens/all_timers/db_helper.dart';
-import 'package:dmb_timer_3/screens/all_timers/Timer.dart';
+import 'package:dmb_timer_3/screens/all_timers/utilities/DbHelper.dart';
+import 'package:dmb_timer_3/screens/all_timers/utilities/Timer.dart';
 import 'package:dmb_timer_3/utilities/calculate_date.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'widgets/AddTimerDialog.dart';
+import 'widgets/PropTimerDialog.dart';
 
 class AllTimersHome extends StatefulWidget {
   AllTimersHome({Key key, this.title}) : super(key: key);
@@ -18,17 +19,11 @@ class AllTimersHome extends StatefulWidget {
 
 class _AllTimersHomeState extends State<AllTimersHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  DateTime dateStart, dateEnd;
-
   Future<List<Timer>> timers;
-  TextEditingController controller = TextEditingController();
-  String name;
   int curUserId;
 
   final formKey = new GlobalKey<FormState>();
-  var dbHelper;
   bool isUpdating;
-  Color formColor, buttonStartColor, buttonEndCollor;
 
   int _sortColumnIndex;
 
@@ -36,11 +31,7 @@ class _AllTimersHomeState extends State<AllTimersHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dbHelper = DBHelper();
     isUpdating = false;
-    name = '';
-    formColor = Colors.green;
-    buttonStartColor = buttonEndCollor = Colors.green[400];
     refreshList();
   }
 
@@ -48,13 +39,6 @@ class _AllTimersHomeState extends State<AllTimersHome> {
     setState(() {
       timers = dbHelper.getTimers();
     });
-  }
-
-  clearName() {
-    controller.text = '';
-    name = '';
-    formColor = buttonStartColor = buttonEndCollor = Colors.green;
-    dateEnd = dateStart = null;
   }
 
   @override
@@ -85,8 +69,8 @@ class _AllTimersHomeState extends State<AllTimersHome> {
         backgroundColor: Colors.grey[200],
         onPressed: () {
           showDialog(
-              context: context,
-              builder: (context) => _alertDialogAddTimer(context));
+                  context: context, builder: (context) => new AddTimerDialog())
+              .whenComplete(() => refreshList());
         },
         child: Icon(
           Icons.add,
@@ -94,133 +78,6 @@ class _AllTimersHomeState extends State<AllTimersHome> {
         ),
       ),
     );
-  }
-
-  _alertDialogAddTimer(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height;
-    return StatefulBuilder(builder: (context, setState) {
-      return AlertDialog(
-        title: Text('Заповніть Форму'),
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Text('Ім\'я:'),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                height: 55,
-                width: 240,
-                child: TextField(
-                  maxLength: 20,
-                  controller: controller,
-                  onChanged: (value) => name = value,
-                  decoration: InputDecoration(
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: formColor, width: 1.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: formColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: formColor, width: 1.0),
-                    ),
-                    labelText: 'Введіть ім\'я',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text('Дата початку:'),
-              MaterialButton(
-                onPressed: () async {
-                  DateTime date = await pickDate(context);
-                  setState(() {
-                    date != null ? buttonStartColor = Colors.green[400] : null;
-                    dateStart = date;
-                  });
-                },
-                child: Text(
-                  "${dateStart != null ? dateStart.toString().substring(0, 10) : 'Виберіть дату'}",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: buttonStartColor,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text('Дата завершення:'),
-              MaterialButton(
-                onPressed: () async {
-                  DateTime date = await pickDate(context);
-                  setState(() {
-                    date != null ? buttonEndCollor = Colors.green[400] : null;
-                    dateEnd = date;
-                  });
-                },
-                child: Text(
-                  "${dateEnd != null ? dateEnd.toString().substring(0, 10) : 'Виберіть дату'}",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: buttonEndCollor,
-              )
-            ],
-          ),
-        ),
-        actions: [
-          MaterialButton(
-            elevation: 3.0,
-            child: Text('Скасувати'),
-            onPressed: () {
-              clearName();
-              Navigator.of(context).pop();
-            },
-          ),
-          MaterialButton(
-            elevation: 3.0,
-            child: Text('Зберегти'),
-            onPressed: () async {
-              bool error = false;
-              Color color1 = Colors.green[400];
-              Color color2 = Colors.green[400];
-              Color color3 = Colors.green[400];
-              if (name.length < 1) {
-                color1 = Colors.red;
-                error = true;
-              }
-              if (dateStart == null) {
-                color2 = Colors.red;
-                error = true;
-              }
-              if (null == dateEnd) {
-                color3 = Colors.red;
-                error = true;
-              }
-              if (error) {
-                setState(() {
-                  formColor = color1;
-                  buttonStartColor = color2;
-                  buttonEndCollor = color3;
-                });
-                return;
-              }
-              await save();
-            },
-          )
-        ],
-      );
-    });
-  }
-
-  save() {
-    Timer e = Timer(null, name, dateStart.millisecondsSinceEpoch,
-        dateEnd.millisecondsSinceEpoch);
-    dbHelper.save(e);
-    clearName();
-    refreshList();
-    Navigator.of(context).pop();
   }
 
   bool _sortAsc = true;
@@ -465,56 +322,7 @@ class _AllTimersHomeState extends State<AllTimersHome> {
 
   dataCellDialog(Timer timer) {
     return showDialog(
-        context: context,
-        builder: (context) => alertDialogTimer(context, timer));
-  }
-
-  alertDialogTimer(BuildContext context, Timer timer) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return AlertDialog(
-          title: Text(timer.name),
-          content: Text('Дата початку          ' +
-              DateTime.fromMillisecondsSinceEpoch(timer.start)
-                  .toIso8601String()
-                  .substring(0, 10) +
-              '\n' +
-              'Дата завершення  ' +
-              DateTime.fromMillisecondsSinceEpoch(timer.end)
-                  .toIso8601String()
-                  .substring(0, 10) +
-              '\n' +
-              'Пройшло днів         ' +
-              passedDay(timer.start).toString() +
-              '\n' +
-              'Залишилось днів   ' +
-              leftDay(timer.end).toString()),
-          actions: [
-            MaterialButton(
-              elevation: 3.0,
-              child: Text(
-                'Видалити Таймер',
-                style: TextStyle(color: Colors.red),
-              ),
-              onPressed: () {
-                dbHelper.delete(timer.id);
-                refreshList();
-                Navigator.of(context).pop();
-              },
-            ),
-            MaterialButton(
-              elevation: 3.0,
-              child: Text(
-                'Закрити',
-                style: TextStyle(color: Colors.green),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+            context: context, builder: (context) => new PropTimerDialog(timer))
+        .whenComplete(() => refreshList());
   }
 }

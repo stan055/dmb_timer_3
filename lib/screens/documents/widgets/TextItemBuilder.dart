@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dmb_timer_3/screens/documents/documents_list_val.dart';
+import 'package:dmb_timer_3/screens/documents/utilities/documents_list_val.dart';
 
 class TextItemBuilder extends StatefulWidget {
   TextItemBuilder(this.list, this.index);

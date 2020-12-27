@@ -1,4 +1,4 @@
-import 'package:dmb_timer_3/screens/documents/documents_string.dart';
+import 'package:dmb_timer_3/screens/documents/utilities/documents_string.dart';
 
 class ListDocumentsRaportItem {
   String name;
