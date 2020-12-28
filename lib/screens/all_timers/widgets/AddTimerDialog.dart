@@ -154,7 +154,10 @@ class _AddTimerDialogState extends State<AddTimerDialog> {
   save() async {
     Timer e = Timer(null, name, dateStart.millisecondsSinceEpoch,
         dateEnd.millisecondsSinceEpoch);
-    await dbHelper.save(e).then((value) => globalTimers.add(e));
+    await dbHelper
+        .save(e)
+        .then((value) => globalTimers.add(e))
+        .then((value) => globalTimersLength.value++);
     Navigator.of(context).pop();
   }
 }

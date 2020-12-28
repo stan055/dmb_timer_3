@@ -1,13 +1,9 @@
 import 'package:dmb_timer_3/screens/all_timers/utilities/DbHelper.dart';
 import 'package:dmb_timer_3/screens/all_timers/utilities/Timer.dart';
-import 'package:dmb_timer_3/screens/all_timers/utilities/sort_table.dart';
-import 'package:dmb_timer_3/utilities/calculate_date.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'widgets/AddTimerDialog.dart';
 import 'widgets/MyDataTable.dart';
-import 'widgets/PropTimerDialog.dart';
 
 class AllTimersHome extends StatefulWidget {
   AllTimersHome({Key key, this.title}) : super(key: key);
@@ -26,8 +22,6 @@ class _AllTimersHomeState extends State<AllTimersHome> {
 
   final formKey = new GlobalKey<FormState>();
   bool isUpdating;
-
-  int _sortColumnIndex;
 
   @override
   void initState() {

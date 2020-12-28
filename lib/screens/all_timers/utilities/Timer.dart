@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+
 List<Timer> globalTimers;
+final ValueNotifier<int> globalTimersLength = ValueNotifier<int>(0);
 
 class Timer {
   int id;
