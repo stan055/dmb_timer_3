@@ -4,8 +4,10 @@ import 'package:dmb_timer_3/utilities/calculate_date.dart';
 import 'package:dmb_timer_3/screens/all_timers/utilities/DbHelper.dart';
 
 class PropTimerDialog extends StatelessWidget {
-  PropTimerDialog(this.timer);
+  PropTimerDialog(this.timers, this.timer);
   final Timer timer;
+  final List<Timer> timers;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class PropTimerDialog extends StatelessWidget {
             style: TextStyle(color: Colors.red),
           ),
           onPressed: () {
+            timers.removeWhere((element) => element.id == timer.id);
             dbHelper.delete(timer.id);
             Navigator.of(context).pop();
           },

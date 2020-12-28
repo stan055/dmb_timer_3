@@ -1,3 +1,5 @@
+List<Timer> globalTimers;
+
 class Timer {
   int id;
   String name;
