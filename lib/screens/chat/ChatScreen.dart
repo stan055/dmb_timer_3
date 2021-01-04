@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -7,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:dmb_timer_3/menu/Menu.dart';
 import 'package:dmb_timer_3/utilities/global_constants.dart';
 import 'package:dmb_timer_3/utilities/global_var.dart';
-import 'package:quartet/quartet.dart';
 import 'widgets/SetNickNameScreen.dart';
+import 'utilities/Choice.dart';
+import 'utilities/onBindViewHolder.dart';
+import 'widgets/MessageBody.dart';
+import 'widgets/TextComposer.dart';
 
 const String _data_base_name = "messages";
 const int coutnMaxChatMessages = COUNT_CHAT_MAX_MESSEGES;
@@ -23,83 +25,11 @@ class ChatScreen extends StatefulWidget {
 class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  final TextEditingController _textController;
   final DatabaseReference _messageDatabaseReference;
 
-  bool _isComposing = false;
-
   ChatScreenState()
-      : _isComposing = false,
-        _textController = TextEditingController(),
-        _messageDatabaseReference =
+      : _messageDatabaseReference =
             FirebaseDatabase.instance.reference().child(_data_base_name);
-
-  Widget _buildTextComposer() {
-    return IconTheme(
-        data: IconThemeData(color: Theme.of(context).accentColor),
-        child: Container(
-          height: 44,
-          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          child: Row(
-            children: <Widget>[
-              Flexible(
-                child: TextField(
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 30,
-                  maxLength: 500,
-                  controller: _textController,
-                  onChanged: (String text) {
-                    setState(() {
-                      _isComposing = text.length > 0;
-                    });
-                  },
-                  onSubmitted: _handleSubmitted,
-                  decoration: InputDecoration.collapsed(
-                    hintText: "Введіть текст",
-                  ),
-                ),
-              ),
-              Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Row(
-                    children: <Widget>[
-                      Theme.of(context).platform == TargetPlatform.iOS
-                          ? CupertinoButton(
-                              child: Text("Відправити"),
-                              onPressed: _isComposing
-                                  ? () => _handleSubmitted(_textController.text)
-                                  : null,
-                            )
-                          : IconButton(
-                              icon: Icon(Icons.send),
-                              onPressed: _isComposing
-                                  ? () => _handleSubmitted(_textController.text)
-                                  : null,
-                            ),
-                    ],
-                  ))
-            ],
-          ),
-        ));
-  }
-
-  String _timeFromDate() {
-    DateTime _dateTime = DateTime.now();
-    String minutes = _dateTime.minute < 10
-        ? "0" + _dateTime.minute.toString()
-        : _dateTime.minute.toString();
-    return _dateTime.hour.toString() + ':' + minutes;
-  }
-
-  void _handleSubmitted(String text) {
-    _textController.clear();
-    setState(() {
-      _isComposing = false;
-    });
-
-    text = NICK_NAME_VAL + '   ' + _timeFromDate() + '\n' + text;
-    _messageDatabaseReference.push().set(text);
-  }
 
   void _select(Choice choice) {
     setState(() {
@@ -109,7 +39,6 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    double _width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
       drawer: menu(context),
@@ -181,10 +110,9 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                                   scrollDirection: Axis.vertical,
                                   itemCount: st.length,
                                   reverse: true,
-                                  itemBuilder: (context, index) => buildBody(
-                                      context,
-                                      st.values
-                                          .elementAt(st.length - 1 - index)));
+                                  itemBuilder: (context, index) =>
+                                      new MessageBody(onBindViewHolder(st.values
+                                          .elementAt(st.length - 1 - index))));
                         } else {
                           return Center(child: CircularProgressIndicator());
                         }
@@ -195,104 +123,11 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                   Container(
                     decoration:
                         BoxDecoration(color: Theme.of(context).cardColor),
-                    child: _buildTextComposer(),
+                    child: new TextComposer(),
                   ),
                 ],
               ),
             ),
-    );
-  }
-
-  void onBindViewHolder(String text, List<String> ss) {
-    String msg = text;
-    String name = "", message = "";
-    bool boolName = true;
-    for (int ii = 0; ii < msg.length; ii++) {
-      if (boolName) {
-        if (charAt(msg, ii) != '\n') {
-          name += charAt(msg, ii);
-        } else {
-          boolName = false;
-        }
-      } else {
-        message += charAt(msg, ii);
-      }
-    }
-
-    ss[0] = name;
-    ss[1] = message;
-  }
-
-  Widget buildBody(BuildContext context, String text) {
-    List<String> ss = List<String>(2);
-    onBindViewHolder(text, ss);
-
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12.0, 7.0, 0.0, 0.0),
-            child: Text(
-              ss[0],
-            ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 27.0, vertical: 0.0),
-            child: Material(
-              color: Colors.amberAccent[100],
-              borderRadius: BorderRadius.circular(10.0),
-              elevation: 1.0,
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 17.0),
-                child: Text(
-                  ss[1],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 12,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Змінити Нікнейм', icon: Icons.directions_car),
-];
-
-class ChoiceCard extends StatelessWidget {
-  const ChoiceCard({Key key, this.choice}) : super(key: key);
-
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(choice.icon, color: Colors.cyanAccent),
-            Text(
-              choice.title,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
