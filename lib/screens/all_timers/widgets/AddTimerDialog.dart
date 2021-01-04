@@ -5,7 +5,7 @@ import 'package:dmb_timer_3/screens/all_timers/utilities/DbHelper.dart';
 class AddTimerDialog extends StatefulWidget {
   @override
   _AddTimerDialogState createState() => _AddTimerDialogState();
-}
+} 
 
 class _AddTimerDialogState extends State<AddTimerDialog> {
   TextEditingController controller = TextEditingController();

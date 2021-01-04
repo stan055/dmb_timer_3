@@ -6,18 +6,19 @@ import 'package:path_provider/path_provider.dart';
 import 'UserData.dart';
 
 class Pref {
-  static const String DATE_START_KEY = "DATE_START_KEY";
-  static const String DATE_START_END = "DATE_START_END";
+  static const String DATE_START_KEY = "DATE_START";
+  static const String DATE_END_KEY = "DATE_END";
+  static const String NICK_NAME_KEY = 'NICK_NAME';
 
   static Future<Object> getData() async {
     UserData data = new UserData();
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    data.nickName = prefs.getString('NICK_NAME_KEY') ?? NICK_NAME;
+    data.nickName = prefs.getString(NICK_NAME_KEY) ?? NICK_NAME;
     data.dateStart =
-        prefs.getInt('dateTimeStart') ?? DateTime.now().millisecondsSinceEpoch;
+        prefs.getInt(DATE_START_KEY) ?? DateTime.now().millisecondsSinceEpoch;
     data.dateEnd =
-        prefs.getInt('dateTimeEnd') ?? DateTime.now().millisecondsSinceEpoch;
+        prefs.getInt(DATE_END_KEY) ?? DateTime.now().millisecondsSinceEpoch;
 
     return data;
   }
@@ -34,12 +35,12 @@ class Pref {
 
   static Future<int> getDateEndTimer() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(DATE_START_END) ?? null;
+    return prefs.getInt(DATE_END_KEY) ?? null;
   }
 
   static Future<bool> saveDateEndTimer(int value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setInt(DATE_START_END, value);
+    return prefs.setInt(DATE_END_KEY, value);
   }
 
   static Future<int> getWallpapersTimeCreated() async {
@@ -67,5 +68,10 @@ class Pref {
     } catch (e) {
       return null;
     }
+  }
+
+  static setNickName(nickname) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(NICK_NAME_KEY, nickname);
   }
 }

@@ -40,19 +40,12 @@ class DBHelper {
     var dbClient = await db;
     timer.id = await dbClient.insert(TABLE, timer.toMap());
     return timer;
-    /*
-    await dbClient.transaction((txn) async {
-      var query = "INSERT INTO $TABLE ($NAME) VALUES ('" + employee.name + "')";
-      return await txn.rawInsert(query);
-    });
-    */
   }
 
   Future<List<Timer>> getTimers() async {
     var dbClient = await db;
     List<Map> maps =
         await dbClient.query(TABLE, columns: [ID, NAME, START, END]);
-    //List<Map> maps = await dbClient.rawQuery("SELECT * FROM $TABLE");
     List<Timer> timers = [];
     if (maps.length > 0) {
       for (int i = 0; i < maps.length; i++) {
