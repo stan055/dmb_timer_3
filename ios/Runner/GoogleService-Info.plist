@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>105797472550-q21vktblgpnqlfp0kg62kiif8h75vhj0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.105797472550-q21vktblgpnqlfp0kg62kiif8h75vhj0</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>105797472550-0n39007j5f7f9i8n4k4jhcbq5ntmhgl8.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDjxU-8_ZLpbd__Cgip0CbNKhwYFywmSNQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>105797472550</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.dmbTimer3</string>
+	<key>PROJECT_ID</key>
+	<string>dmbtimer-d0b27</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dmbtimer-d0b27.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:105797472550:ios:9ff492c10e7a2f9acab1e7</string>
+	<key>DATABASE_URL</key>
+	<string>https://dmbtimer-d0b27.firebaseio.com</string>
+</dict>
+</plist>
