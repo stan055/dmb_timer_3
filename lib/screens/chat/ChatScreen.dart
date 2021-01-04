@@ -97,7 +97,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
                           _list.forEach((k, v) => st[k] = v);
 
-                          // Удаляем старые сообщения
+                          // Deleting old messages
                           st.length > coutnMaxChatMessages
                               ? _messageDatabaseReference
                                   .child(st.firstKey())

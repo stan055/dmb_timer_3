@@ -25,7 +25,6 @@ class _AllTimersHomeState extends State<AllTimersHome> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isUpdating = false;
     timers = dbHelper.getTimers();
