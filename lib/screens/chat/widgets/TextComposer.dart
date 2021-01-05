@@ -62,14 +62,7 @@ class _TextComposerState extends State<TextComposer> {
                   margin: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: Row(
                     children: <Widget>[
-                      Theme.of(context).platform == TargetPlatform.iOS
-                          ? CupertinoButton(
-                              child: Text("Відправити"),
-                              onPressed: _isComposing
-                                  ? () => _handleSubmitted(_textController.text)
-                                  : null,
-                            )
-                          : IconButton(
+                          IconButton(
                               icon: Icon(Icons.send),
                               onPressed: _isComposing
                                   ? () => _handleSubmitted(_textController.text)
