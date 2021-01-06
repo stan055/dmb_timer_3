@@ -40,16 +40,16 @@ class _MyDataTableState extends State<MyDataTable> {
             child: DataTable(
                 sortColumnIndex: _sortColumnIndex,
                 sortAscending: _sortAsc,
-                horizontalMargin: 4,
+                horizontalMargin: 5,
                 columnSpacing: 1,
                 columns: [
                   DataColumn(
                     numeric: false,
-                    label: Container(width: 20, child: Text('')),
+                    label: Container(width: 15, child: Text('')),
                   ),
                   DataColumn(
                       numeric: false,
-                      label: Container(width: _width, child: Text('ІМ\'Я')),
+                      label: Container(width: _width -3, child: Text('Ім\'я')),
                       onSort: (columnIndex, sortAscending) {
                         setState(() {
                           if (columnIndex == _sortColumnIndex) {
@@ -64,14 +64,14 @@ class _MyDataTableState extends State<MyDataTable> {
                   DataColumn(
                       numeric: false,
                       label: Container(
-                          width: _width,
-                          child: Text('ДАТИ\nПОЧАТКУ\nЗАВЕРШЕН..'))),
+                          width: _width +10,
+                          child: Text('Початок /\nЗавершен.'))),
                   DataColumn(
                       numeric: false,
                       label: Container(
-                          width: _width - 7,
+                          width: _width -10,
                           child: Text(
-                            'ДНІВ\nПРОЙШЛО',
+                            'Днів\nПройшло',
                             textAlign: TextAlign.center,
                           )),
                       onSort: (columnIndex, sortAscending) {
@@ -87,9 +87,9 @@ class _MyDataTableState extends State<MyDataTable> {
                       }),
                   DataColumn(
                       label: Container(
-                          width: _width - 7,
+                          width: _width,
                           child: Text(
-                            'ДНІВ\nЗАЛИШИЛ\nОСЬ',
+                            'Днів\nЗалишило.',
                             textAlign: TextAlign.center,
                           )),
                       onSort: (columnIndex, sortAscending) {
@@ -107,7 +107,7 @@ class _MyDataTableState extends State<MyDataTable> {
                 rows: globalTimers
                     .map((timer) => DataRow(cells: [
                           DataCell(Container(
-                            width: 20,
+                            width: 15,
                             child: Text((++number).toString()),
                           )),
                           DataCell(
@@ -118,7 +118,7 @@ class _MyDataTableState extends State<MyDataTable> {
                               onTap: () => dataCellDialog(timer)),
                           DataCell(
                               Container(
-                                width: _width,
+                                width: _width +5,
                                 child:
                                     // Date Start text
                                     Text(DateTime.fromMillisecondsSinceEpoch(
@@ -135,7 +135,7 @@ class _MyDataTableState extends State<MyDataTable> {
                               onTap: () => dataCellDialog(timer)),
                           DataCell(
                               Container(
-                                  width: _width,
+                                  width: _width -12,
                                   padding: EdgeInsets.symmetric(vertical: 4),
                                   child: Column(
                                     children: [
@@ -160,7 +160,7 @@ class _MyDataTableState extends State<MyDataTable> {
                               onTap: () => dataCellDialog(timer)),
                           DataCell(
                               Container(
-                                  width: _width,
+                                  width: _width -5,
                                   padding: EdgeInsets.symmetric(vertical: 4),
                                   child: Column(
                                     children: [

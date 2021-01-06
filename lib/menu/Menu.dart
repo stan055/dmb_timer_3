@@ -10,40 +10,30 @@ import 'package:flutter/material.dart';
 
 Widget menu(BuildContext context) {
   return Container(
-    color: Colors.white,
+    color: Colors.grey[200],
     width: 300.0,
     child: ListView(
       children: <Widget>[
         DrawerHeader(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: <Color>[Colors.grey[700], Colors.grey]),
-              image: DecorationImage(
-                  image: homeScreenImg != null
-                      ? FileImage(homeScreenImg)
-                      : AssetImage('assets/images/army3.jpg'),
-                  fit: BoxFit.none,
-                  alignment: Alignment.topLeft),
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   '${NICK_NAME_VAL != null ? 'Привіт ' + NICK_NAME_VAL : 'Привіт друг'}',
-                  style: TextStyle(color: Colors.white),
+                  
                 )
               ],
             )),
         ListTile(
-          leading: Icon(Icons.chat),
+          leading: Icon(Icons.chat, color: Colors.grey,),
           title: Text('Чат'),
           onTap: () {
             Navigator.of(context).pushNamed(ChatScreen.id);
           },
         ),
         ListTile(
-          leading: Icon(Icons.home),
+          leading: Icon(Icons.home, color: Colors.grey),
           title: Text('Головна'),
           onTap: () {
             Navigator.of(context).pushNamed(MyHomePage.id);
@@ -51,7 +41,7 @@ Widget menu(BuildContext context) {
         ),
         ListTile(
           leading: Icon(
-            Icons.timer,
+            Icons.timer, color: Colors.grey
           ),
           title: Text('Всі Таймери'),
           onTap: () {
@@ -59,29 +49,29 @@ Widget menu(BuildContext context) {
           },
         ),
         ListTile(
-          leading: Icon(Icons.location_searching),
+          leading: Icon(Icons.location_searching, color: Colors.grey),
           title: Text('ТТХ Зброї'),
           onTap: () {
             Navigator.of(context).pushNamed(TthList.id);
           },
         ),
         ListTile(
-          leading: Icon(Icons.grade),
+          leading: Icon(Icons.grade, color: Colors.grey),
           title: Text('Звання України'),
           onTap: () {
             Navigator.of(context).pushNamed(RankScreen.id);
           },
         ),
         ListTile(
-          leading: Icon(Icons.beenhere),
+          leading: Icon(Icons.beenhere, color: Colors.grey),
           title: Text('Шеврони ЗСУ'),
           onTap: () {
             Navigator.of(context).pushNamed(ShevronsScreen.id);
           },
         ),
         ListTile(
-          leading: Icon(Icons.library_books),
-          title: Text('Рапорти Обов\'язки Забезпечення'),
+          leading: Icon(Icons.library_books, color: Colors.grey,),
+          title: Text('Рапорти Обов\'язки Забезпечення',),
           onTap: () {
             Navigator.of(context).pushNamed(ListDocumentsScreen.id);
           },

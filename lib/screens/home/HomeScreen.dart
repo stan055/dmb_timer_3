@@ -44,72 +44,70 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: menu(context),
-        body: Stack(
-          children: <Widget>[
-            SizedBox.expand(
-              child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: SizedBox(
-                    width: _width,
-                    height: _height,
-                    child: homeScreenImg != null
-                        ? Image.file(
-                            homeScreenImg,
-                            width: _width,
-                            height: _height,
-                            fit: BoxFit.fill,
-                          )
-                        : Image.asset(
-                            imgPath,
-                            width: _width,
-                            height: _height,
-                            fit: BoxFit.fill,
-                          ),
-                  )),
-            ),
-            Positioned(
-              right: _width / 2,
-              bottom: _height / 2 - 70,
-              child: new TimePassed(),
-            ),
-            Positioned(
-              left: _width / 2,
-              bottom: _height / 2 - 70,
-              child: new TimeLeft(),
-            ),
-            Positioned(
-              left: 5,
-              right: 5,
-              bottom: 5,
-              child: Container(height: 100, width: 350, child: HomeBanner()),
-            ),
-            Positioned(
-                top: 0,
-                left: 0,
-                height: 50,
-                width: 50,
-                child: MaterialButton(
-                  onPressed: () => _scaffoldKey.currentState.openDrawer(),
-                  child: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                    size: 33.0,
-                  ),
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: menu(context),
+      body: Stack(
+        children: <Widget>[
+          SizedBox.expand(
+            child: FittedBox(
+                fit: BoxFit.fill,
+                child: SizedBox(
+                  width: _width,
+                  height: _height,
+                  child: homeScreenImg != null
+                      ? Image.file(
+                          homeScreenImg,
+                          width: _width,
+                          height: _height,
+                          fit: BoxFit.fill,
+                        )
+                      : Image.asset(
+                          imgPath,
+                          width: _width,
+                          height: _height,
+                          fit: BoxFit.fill,
+                        ),
                 )),
-            Positioned(
-              bottom: _height / 2 - 86,
-              left: (_width - ((_width / 2.2) * 2)) / 2,
-              child: Container(
-                  height: 14,
-                  width: ((_width / 2.2) * 2),
-                  child: new ProgressBar()),
-            ),
-          ],
-        ),
+          ),
+          Positioned(
+            right: _width / 2,
+            bottom: _height / 2 - 70,
+            child: new TimePassed(),
+          ),
+          Positioned(
+            left: _width / 2,
+            bottom: _height / 2 - 70,
+            child: new TimeLeft(),
+          ),
+          Positioned(
+            left: 5,
+            right: 5,
+            bottom: 5,
+            child: Container(height: 100, width: 350, child: HomeBanner()),
+          ),
+          Positioned(
+              top: 35,
+              left: 5,
+              height: 50,
+              width: 50,
+              child: MaterialButton(
+                onPressed: () => _scaffoldKey.currentState.openDrawer(),
+                child: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                  size: 33.0,
+                ),
+              )),
+          Positioned(
+            bottom: _height / 2 - 86,
+            left: (_width - ((_width / 2.2) * 2)) / 2,
+            child: Container(
+                height: 14,
+                width: ((_width / 2.2) * 2),
+                child: new ProgressBar()),
+          ),
+        ],
       ),
     );
   }
