@@ -29,13 +29,13 @@ class _MyDataTableState extends State<MyDataTable> {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
-    int number = 0;
     _width = (_width - 50) / 4 - 5;
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: ValueListenableBuilder(
         builder: (BuildContext context, int value, Widget child) {
+          int number = 0;
           return Center(
             child: DataTable(
                 sortColumnIndex: _sortColumnIndex,
@@ -45,7 +45,7 @@ class _MyDataTableState extends State<MyDataTable> {
                 columns: [
                   DataColumn(
                     numeric: false,
-                    label: Container(width: 15, child: Text('')),
+                    label: Container(width: 17, child: Text('')),
                   ),
                   DataColumn(
                       numeric: false,
@@ -107,7 +107,7 @@ class _MyDataTableState extends State<MyDataTable> {
                 rows: globalTimers
                     .map((timer) => DataRow(cells: [
                           DataCell(Container(
-                            width: 15,
+                            width: 17,
                             child: Text((++number).toString()),
                           )),
                           DataCell(
