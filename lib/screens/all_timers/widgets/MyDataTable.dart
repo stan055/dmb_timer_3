@@ -16,7 +16,6 @@ class MyDataTable extends StatefulWidget {
 class _MyDataTableState extends State<MyDataTable> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     globalTimers = widget.timers;
   }
@@ -26,13 +25,12 @@ class _MyDataTableState extends State<MyDataTable> {
   bool _sortPassed = true;
   bool _sortLeft = true;
   bool _sortName = true;
-  bool _sortId = true;
 
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
     int number = 0;
-    _width = (_width - 50) / 4 - 12;
+    _width = (_width - 50) / 4 - 5;
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -42,8 +40,8 @@ class _MyDataTableState extends State<MyDataTable> {
             child: DataTable(
                 sortColumnIndex: _sortColumnIndex,
                 sortAscending: _sortAsc,
-                horizontalMargin: 3,
-                columnSpacing: 0,
+                horizontalMargin: 4,
+                columnSpacing: 1,
                 columns: [
                   DataColumn(
                     numeric: false,
@@ -73,7 +71,7 @@ class _MyDataTableState extends State<MyDataTable> {
                       label: Container(
                           width: _width - 7,
                           child: Text(
-                            'ДНІВ\nПРОЙШ\nЛО',
+                            'ДНІВ\nПРОЙШЛО',
                             textAlign: TextAlign.center,
                           )),
                       onSort: (columnIndex, sortAscending) {
@@ -101,23 +99,6 @@ class _MyDataTableState extends State<MyDataTable> {
                           } else {
                             _sortColumnIndex = columnIndex;
                             _sortAsc = _sortLeft;
-                          }
-                          onSortColum(columnIndex, sortAscending, globalTimers);
-                        });
-                      }),
-                  DataColumn(
-                      numeric: true,
-                      label: Container(
-                        width: 25,
-                        child: Text('ID'),
-                      ),
-                      onSort: (columnIndex, sortAscending) {
-                        setState(() {
-                          if (columnIndex == _sortColumnIndex) {
-                            _sortAsc = _sortId = sortAscending;
-                          } else {
-                            _sortColumnIndex = columnIndex;
-                            _sortAsc = _sortId;
                           }
                           onSortColum(columnIndex, sortAscending, globalTimers);
                         });
@@ -202,12 +183,6 @@ class _MyDataTableState extends State<MyDataTable> {
                                     ],
                                   )),
                               onTap: () => dataCellDialog(timer)),
-                          DataCell(
-                              Container(
-                                width: 25,
-                                child: Text(timer.id.toString()),
-                              ),
-                              onTap: () => dataCellDialog(timer))
                         ]))
                     .toList()),
           );

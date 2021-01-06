@@ -52,7 +52,7 @@ class _AllTimersHomeState extends State<AllTimersHome> {
         backgroundColor: Colors.grey[200],
       ),
       drawer: Drawer(child: menu(context)),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[200],
       body: list(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey[200],

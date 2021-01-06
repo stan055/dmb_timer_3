@@ -20,11 +20,5 @@ onSortColum(int columnIndex, bool ascending, List<Timer> timers) {
     } else {
       timers.sort((a, b) => b.name.compareTo(a.name));
     }
-  } else if (columnIndex == 5) {
-    if (ascending) {
-      timers.sort((a, b) => a.id.compareTo(b.id));
-    } else {
-      timers.sort((a, b) => b.id.compareTo(a.id));
-    }
   }
 }
