@@ -46,9 +46,22 @@ class _ImgItemBuilderState extends State<ImgItemBuilder> {
   }
 
   Widget itemBuilder(String img) {
-    return Container(
-        child: PhotoView(
-      imageProvider: AssetImage(img),
-    ));
+    return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.grey[200],
+          leading: MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.grey,
+              size: 33.0,
+            ),
+          ),
+        ),
+        body: PhotoView(
+          backgroundDecoration: BoxDecoration(color: Colors.grey[200]),
+          imageProvider: AssetImage(img),
+        ));
   }
 }
