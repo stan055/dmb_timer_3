@@ -11,10 +11,10 @@ class ProgressBar extends StatelessWidget {
         return RoundedProgressBar(
             childCenter: Text(PERCENT_VALUE.value.toStringAsFixed(1),
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.white)),
-            height: 12.0,
+            height: 14.0,
             childLeft: Text('progressBar'),
             milliseconds: 2000,
             style: RoundedProgressBarStyle(

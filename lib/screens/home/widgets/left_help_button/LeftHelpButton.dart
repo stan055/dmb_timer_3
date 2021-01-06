@@ -17,11 +17,12 @@ class _LeftHelpButtonState extends State<LeftHelpButton> {
       child: Icon(
         Icons.help,
         color: Colors.white70,
+        size: 32.0,
       ),
     );
   }
 
-    helpButton(BuildContext context) {
+  helpButton(BuildContext context) {
     return AlertDialog(
       title: Text(
         'Дата завершення: ' +

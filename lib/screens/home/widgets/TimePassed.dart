@@ -33,7 +33,7 @@ class _TimePassedState extends State<TimePassed> {
                   child: Center(
                     child: Text(
                       'Пройшло днів',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                 )),
@@ -41,17 +41,20 @@ class _TimePassedState extends State<TimePassed> {
               right: 0,
               top: 0,
               child: Container(
-                  height: 30, width: 45, child: new PassedHelpButton()),
+                  height: 40, width: 55, child: new PassedHelpButton()),
             ),
             ValueListenableBuilder(
               builder: (BuildContext context, int value, Widget child) {
                 return Center(
-                    child: Text(
-                  passedDay(DATE_TIME_START).toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
+                    child: GestureDetector(
+                  onTap: () => pickDate(context),
+                  child: Text(
+                    passedDay(DATE_TIME_START).toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ));
               },
               valueListenable: valueNotifier,
@@ -65,7 +68,7 @@ class _TimePassedState extends State<TimePassed> {
                 },
                 child: Text(
                   'Змінити',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 16.0),
                 ),
               ),
             )

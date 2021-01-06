@@ -33,7 +33,7 @@ class _TimeLeftState extends State<TimeLeft> {
                   child: Center(
                     child: Text(
                       'Залишилось днів',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ),
                 )),
@@ -41,17 +41,20 @@ class _TimeLeftState extends State<TimeLeft> {
               right: 0,
               top: 0,
               child:
-                  Container(height: 30, width: 45, child: new LeftHelpButton()),
+                  Container(height: 40, width: 55, child: new LeftHelpButton()),
             ),
             ValueListenableBuilder(
               builder: (BuildContext context, int value, Widget child) {
                 return Center(
-                    child: Text(
-                  leftDay(DATE_TIME_END).toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
+                    child: GestureDetector(
+                  onTap: () => pickDateLeft(context),
+                  child: Text(
+                    leftDay(DATE_TIME_END).toString(),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ));
               },
               valueListenable: valueNotifier,
@@ -65,7 +68,7 @@ class _TimeLeftState extends State<TimeLeft> {
                 },
                 child: Text(
                   'Змінити',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
             )

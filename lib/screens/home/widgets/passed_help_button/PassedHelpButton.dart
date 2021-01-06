@@ -17,6 +17,7 @@ class _PassedHelpButtonState extends State<PassedHelpButton> {
       child: Icon(
         Icons.help,
         color: Colors.white70,
+        size: 32.0,
       ),
     );
   }

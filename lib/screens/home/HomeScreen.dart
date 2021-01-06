@@ -101,10 +101,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )),
             Positioned(
-              bottom: _height / 2 - 85,
+              bottom: _height / 2 - 86,
               left: (_width - ((_width / 2.2) * 2)) / 2,
               child: Container(
-                  height: 12,
+                  height: 14,
                   width: ((_width / 2.2) * 2),
                   child: new ProgressBar()),
             ),
