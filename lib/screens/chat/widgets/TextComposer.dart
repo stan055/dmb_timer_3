@@ -38,7 +38,8 @@ class _TextComposerState extends State<TextComposer> {
         data: IconThemeData(color: Theme.of(context).accentColor),
         child: Container(
           height: 50.0,
-          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
+          margin: const EdgeInsets.only(
+              left: 8.0, right: 8.0, top: 10.0, bottom: 19.0),
           child: Row(
             children: <Widget>[
               Flexible(
@@ -62,12 +63,12 @@ class _TextComposerState extends State<TextComposer> {
                   margin: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: Row(
                     children: <Widget>[
-                          IconButton(
-                              icon: Icon(Icons.send),
-                              onPressed: _isComposing
-                                  ? () => _handleSubmitted(_textController.text)
-                                  : null,
-                            ),
+                      IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: _isComposing
+                            ? () => _handleSubmitted(_textController.text)
+                            : null,
+                      ),
                     ],
                   ))
             ],
