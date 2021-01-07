@@ -15,18 +15,34 @@ Widget menu(BuildContext context) {
     child: ListView(
       children: <Widget>[
         DrawerHeader(
+            decoration: Theme.of(context).platform == TargetPlatform.iOS
+                ? null
+                : BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: <Color>[Colors.grey[700], Colors.grey]),
+                    image: DecorationImage(
+                        image: ExactAssetImage("assets/images/army3.jpg"),
+                        fit: BoxFit.none,
+                        alignment: Alignment.topLeft),
+                  ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   '${NICK_NAME_VAL != null ? 'Привіт ' + NICK_NAME_VAL : 'Привіт друг'}',
-                  
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17.0),
                 )
               ],
             )),
         ListTile(
-          leading: Icon(Icons.chat, color: Colors.grey,),
+          leading: Icon(
+            Icons.chat,
+            color: Colors.grey,
+          ),
           title: Text('Чат'),
           onTap: () {
             Navigator.of(context).pushNamed(ChatScreen.id);
@@ -40,9 +56,7 @@ Widget menu(BuildContext context) {
           },
         ),
         ListTile(
-          leading: Icon(
-            Icons.timer, color: Colors.grey
-          ),
+          leading: Icon(Icons.timer, color: Colors.grey),
           title: Text('Всі Таймери'),
           onTap: () {
             Navigator.of(context).pushNamed(AllTimersHome.id);
@@ -70,8 +84,13 @@ Widget menu(BuildContext context) {
           },
         ),
         ListTile(
-          leading: Icon(Icons.library_books, color: Colors.grey,),
-          title: Text('Рапорти Обов\'язки Забезпечення',),
+          leading: Icon(
+            Icons.library_books,
+            color: Colors.grey,
+          ),
+          title: Text(
+            'Рапорти Обов\'язки Забезпечення',
+          ),
           onTap: () {
             Navigator.of(context).pushNamed(ListDocumentsScreen.id);
           },
