@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         const Locale('uk'), // Hebrew
         // ... other locales the app supports
       ],
-      title: 'Flutter Demo',
+      title: 'ДМБ Таймер',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
