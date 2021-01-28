@@ -61,11 +61,11 @@ class _ShevronsScreenState extends State<ShevronsScreen> {
             );
          },
           child: Container(
-            height: 120,
-           width: 120,
+            height: 110,
+           width: 110,
            child: Image.asset(shevronItem.img)),
        ),
-       Text(shevronItem.title),
+       Text(shevronItem.title, maxLines: 3),
       ],),
     );
   }
