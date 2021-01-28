@@ -6,5 +6,7 @@ Flutter app.
 
 Google Play:   https://play.google.com/store/apps/details?id=com.vylkan.dmbtimer
 
+Site:  https://stan055.github.io/dmb_timer_3/
+
 <img src="screenshots/dmbtimer.webp" height="500px">
 <img src="screenshots/dmbLog.PNG">
